@@ -1,14 +1,14 @@
 /*
 
-Controlador principal de la simulación de la pelota
+Controlador principal de la simulación de la figuras
 
 */
 
 let canvas = null;
 let ctx = null;
-let pelotas = []; // Cambiado a un array para múltiples pelotas
-let gravedad = 0.3; // Ajustada la gravedad para un comportamiento más suave con múltiples pelotas
-const NUM_PELOTAS = 29; // Número de pelotas a crear
+let figurass = [];
+let gravedad = 0.5; // Ajustada la gravedad para un comportamiento más suave con múltiples figurass
+const NUM_FIGURASS = 10; // Número de figurass a crear
 
 window.onload = function () {
   canvas = document.getElementById("canvas");
@@ -22,14 +22,19 @@ window.onload = function () {
 };
 
 function cargarInicio() {
-  // Crear múltiples pelotas
-  for (let i = 0; i < NUM_PELOTAS; i++) {
-    pelotas.push(new Pelota());
+  // Crear múltiples figurass (mezcla de círculos, cuadrados y triángulos)
+  for (let i = 0; i < NUM_FIGURASS; i++) {
+    if (Math.random() < 0.33) { // 33% de posibilidad de crear una figura  
+      figurass.push(new Figuras());
+    } else if (Math.random()) { 
+      figurass.push(new Cuadrado());
+    } else if (Math.random()){
+      figurass.push(new Triangulo());
+    }
   }
   animar(); // Iniciar el bucle de animación
 }
 
-// Función de animación global (movida desde pelota.js)
 function animar() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el canvas
 
@@ -38,25 +43,25 @@ function animar() {
   ctx.lineWidth = 2; // Grosor de la línea de los bordes (puedes cambiarlo)
   ctx.strokeRect(0, 0, canvas.width, canvas.height); // Dibuja el rectángulo de los bordes
 
-  // Aplicar gravedad, actualizar posición y detectar colisiones con bordes para cada pelota
-  for (let i = 0; i < pelotas.length; i++) {
-    let pelota = pelotas[i];
-    pelota.velocidad.y += gravedad; // Aplicar gravedad
-    pelota.posicion.x += pelota.velocidad.x;
-    pelota.posicion.y += pelota.velocidad.y;
-    pelota.detectarColisionBordes(); // Detectar colisión con bordes
+  // Aplicar gravedad, actualizar posición y detectar colisiones con bordes para cada figuras
+  for (let i = 0; i < figurass.length; i++) {
+    let figuras = figurass[i];
+    //figuras.velocidad.y += gravedad; // Añadir gravedad
+    figuras.posicion.x += figuras.velocidad.x;
+    figuras.posicion.y += figuras.velocidad.y;
+    figuras.detectarColisionBordes(); // Detectar colisión con bordes
   }
 
-  // Detectar y resolver colisiones entre pelotas
-  for (let i = 0; i < pelotas.length; i++) {
-    for (let j = i + 1; j < pelotas.length; j++) {
-      pelotas[i].checkCollisionWithOtherBall(pelotas[j]);
+  // Detectar y resolver colisiones entre figurass
+  for (let i = 0; i < figurass.length; i++) {
+    for (let j = i + 1; j < figurass.length; j++) {
+      figurass[i].checkCollisionWithOtherBall(figurass[j]);
     }
   }
 
-  // Dibujar cada pelota en su nueva posición
-  for (let i = 0; i < pelotas.length; i++) {
-    pelotas[i].dibujar();
+  // Dibujar cada figuras en su nueva posición
+  for (let i = 0; i < figurass.length; i++) {
+    figurass[i].dibujar();
   }
 
   // Solicitar el siguiente frame de animación
