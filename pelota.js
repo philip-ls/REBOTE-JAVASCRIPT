@@ -8,8 +8,8 @@ class Figuras {
       y: this.generarNumero(this.radio, ctx.canvas.height - this.radio),
     };
     this.velocidad = {
-      x: this.generarNumero(-3, 3), // Ajustado el rango de velocidad
-      y: this.generarNumero(-3, 3), // Ajustado el rango de velocidad
+      x: this.generarNumero(-10, 3), // Ajustado el rango de velocidad
+      y: this.generarNumero(-6, 3), // Ajustado el rango de velocidad
     };
     this.colorFondo = this.getRandomColor();
     this.masa = this.radio; // Masa proporcional al radio (simplificación)

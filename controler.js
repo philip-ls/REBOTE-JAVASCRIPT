@@ -1,13 +1,12 @@
 /*
-
+ 
 Controlador principal de la simulación de la figuras
-
+ 
 */
 
 let canvas = null;
 let ctx = null;
 let figurass = [];
-let gravedad = 0.5; // Ajustada la gravedad para un comportamiento más suave con múltiples figurass
 const NUM_FIGURASS = 10; // Número de figurass a crear
 
 window.onload = function () {
@@ -24,11 +23,12 @@ window.onload = function () {
 function cargarInicio() {
   // Crear múltiples figurass (mezcla de círculos, cuadrados y triángulos)
   for (let i = 0; i < NUM_FIGURASS; i++) {
-    if (Math.random() < 0.33) { // 33% de posibilidad de crear una figura  
+    const randomShape = Math.random();
+    if (randomShape < 0.33) { // 33% de posibilidad de crear un círculo  
       figurass.push(new Figuras());
-    } else if (Math.random()) { 
+    } else if (randomShape < 0.66) {
       figurass.push(new Cuadrado());
-    } else if (Math.random()){
+    } else {
       figurass.push(new Triangulo());
     }
   }
